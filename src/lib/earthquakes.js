@@ -14,4 +14,20 @@ const URL = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.
 
 export async function fetchEarthquakes() {
   // TODO Sækja gögn frá URL, setja upp villumeðhöndlun og skila
+  let response;
+
+    try {
+        response = await fetch(url);
+    } catch(error) {
+        console.error("Villa við að sækja", error);
+        return null;
+    }
+
+    if (!response.ok) {
+        console.error("Ekki tókst að sækja");
+        return null;
+    }
+
+    response = await response.json();
+    return response.features;
 }
